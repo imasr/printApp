@@ -1,20 +1,94 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div>
+    <navbar></navbar>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="p-2 font-size-14px" id="print-section">
+    <div class="card">
+        <div class="card-header mb-0">
+            <h6>Order Details</h6>
+            <button class="btn btn-primary">Go back</button>
+            <a class="float-right cursor-pointer" (click)="print()" data-toggle="tooltip" data-placement="top" title="Print">
+                <img src="../assets/print.png" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="card mt-5">
+        <div class="card-header border-0">
+            <h5>Order Details</h5>
+        </div>
+        <table class="table mb-0">
+            <tbody>
+                <tr>
+                    <td class="border-right">Customer Name</td>
+                    <td>{{customerDetail?.name}}</td>
+                </tr>
+                <tr>
+                    <td class="border-right">User Verification</td>
+                    <td>{{customerDetail?.verification}}</td>
+                </tr>
+                <tr>
+                    <td class="border-right">Customer Id</td>
+                    <td>{{customerDetail?.id}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card mt-5">
+        <div class="card-header border-0">
+            <h5>Table Details</h5>
+        </div>
+        <table class="table mb-0">
+            <tbody>
+                <tr>
+                    <td class="border-right">Table Number</td>
+                    <td>{{tableDetail?.number}}</td>
+                </tr>
+                <tr>
+                    <td class="border-right">Seating Capacity</td>
+                    <td>{{tableDetail?.seatCapacity}}</td>
+                </tr>
+                <tr>
+                    <td class="border-right">Occupancy</td>
+                    <td>{{tableDetail?.occupancy}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
+    <div class="card mt-5" *ngFor="let data of orders">
+        <div class="card-header border-0">
+            <h5>{{data.orderNo}}</h5>
+            <h5>{{data.status}}</h5>
+            <h5>{{data.paymentStatus}}</h5>
+        </div>
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity Ordered</th>
+                    <th>Amount</th>
+                    <th>Tax</th>
+                    <th>Tax Amount</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.orderDetails">
+                    <td>{{item.name}}</td>
+                    <td>{{item.unitPrice}}</td>
+                    <td>{{item.quantityOrdered}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.tax}}</td>
+                    <td>{{item.taxAmount}}</td>
+                    <td>{{item.totalAmount}}</td>
+                </tr>
+                <tr>
+                    <th scope="row"></th>
+                    <th> Remaining Amount</th>
+                    <td colspan="3">0</td>
+                    <th>Total Amount</th>
+                    <td>{{data.amountPayable}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
