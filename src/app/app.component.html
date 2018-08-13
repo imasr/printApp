@@ -1,14 +1,74 @@
 <div>
     <navbar></navbar>
 </div>
-<div class="p-2 font-size-14px" id="print-section">
+<div class="d-none">
+    <div id="print-section">
+        <div class="text-center p-2 font-size-14px">
+            <div *ngIf="restaurant" class="mb-2">
+                <p>{{restaurant?.name}}</p>
+                <p>{{restaurant?.address}}</p>
+                <p>Tel.: {{restaurant?.phone}}</p>
+                <p>Email: {{restaurant?.email}}</p>
+                <p>GSTIN: {{restaurant?.GSTIN}}</p>
+            </div>
+            <div *ngIf="customerDetail" class="mb-2">
+                <p *ngIf="customerDetail?.name">Name :{{customerDetail?.name}}</p>
+                <p *ngIf="customerDetail?.phone">Mobile.: {{customerDetail?.phone}}</p>
+                <p *ngIf="customerDetail?.email">Email: {{customerDetail?.email}}</p>
+                <p *ngIf="customerDetail?.email">Table no.: {{tableDetail?.number}}</p>
+                <p class="mt-1"> Date: {{customerDetail?.bookingDatetime | date:'medium'}}</p>
+                <h6 class="mt-2 mb-0">Tax Invoice</h6>
+                <p>(Receipt#:{{tableDetail?.receipt}})</p>
+            </div>
+
+            <div class="text-left mb-4">
+                <table class="w-100">
+                    <thead>
+                        <th>Item</th>
+                        <th>Qunatity</th>
+                        <th>Price</th>
+                    </thead>
+                    <tbody class="border-top-dotted border-bottom-dotted " *ngIf="printOrder">
+                        <tr *ngFor="let item of printOrder.orderDetails">
+                            <td>{{item?.name | titlecase}}</td>
+                            <td>{{item?.quantityOrdered}}</td>
+                            <td>{{item?.unitPrice}}</td>
+                        </tr>
+                        <tr *ngIf="printOrder?.totalamount" class="border-top-dotted">
+                            <td>Subtotal</td>
+                            <td>{{printOrder?.totalQuantity}}</td>
+                            <td>{{printOrder?.totalamount}}</td>
+                        </tr>
+                        <tr *ngIf="printOrder?.gstAmount">
+                            <td colspan="2">GST Total(18%)</td>
+                            <td>{{printOrder?.gstAmount}}</td>
+                        </tr>
+                        <tr *ngIf="printOrder?.discount">
+                            <td colspan="2">Discount</td>
+                            <td>{{printOrder?.discount}}</td>
+                        </tr>
+                        <tr class="border-top-dotted">
+                            <td colspan="2">Total including GST</td>
+                            <td>{{printOrder?.amountPayable}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-uppercase">thank you for shopping</p>
+            <p class="text-uppercase">goods once sold are not refundable</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="p-2 font-size-14px">
     <div class="card">
         <div class="card-header mb-0">
             <h6>Order Details</h6>
             <button class="btn btn-primary">Go back</button>
-            <a class="float-right cursor-pointer" (click)="print()" data-toggle="tooltip" data-placement="top" title="Print">
-                <img src="../assets/print.png" alt="">
-            </a>
         </div>
     </div>
     <div class="card mt-5">
@@ -56,9 +116,13 @@
 
     <div class="card mt-5" *ngFor="let data of orders">
         <div class="card-header border-0">
-            <h5>{{data.orderNo}}</h5>
+            <h5>{{data.orderNo}}
+                <a class="float-right cursor-pointer" (click)="print(data)" data-toggle="tooltip" data-placement="top" title="Print">
+                    <img src="../assets/print.png" alt="" width="30">
+                </a>
+            </h5>
             <h5>{{data.status}}</h5>
-            <h5>{{data.paymentStatus}}</h5>
+            <h5>{{data.paymentStatus}} </h5>
         </div>
         <table class="table mb-0">
             <thead>

@@ -7,14 +7,66 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'my-project';
-    customerDetail = { name: "Sunil", verification: true, id: 11 };
-    tableDetail = { number: 2, seatCapacity: 4, occupancy: false }
+    printOrder: any
+
+    restaurant = {
+        name: "Eat Green Restaurant & Cafe",
+        address: "Shop No- B-1345, Main Market, Sector-16 Noida, 201301",
+        phone: 9999359827,
+        email: "ashishs723gmail.com",
+        GSTIN: "GHG1752627"
+    }
+    customerDetail = {
+        name: "Sunil",
+        verification: true,
+        id: 11,
+        email: "ashishs723@gmail.com",
+        phone: "8828388182",
+        bookingDatetime: Date.now()
+    };
+    tableDetail = { number: 2, seatCapacity: 4, occupancy: false, receipt: "rctb73386" }
     orders = [{
         orderNo: "Order 185",
         status: "Completed",
         paymentStatus: "Paid",
-        amountPayable: 525,
+        totalQuantity: 5,
+        totalamount: 525,
+        gstAmount: 20,
+        discount: 30,
+        amountPayable: 515,
         orderDetails: [{
+            name: "ATER MELON ROCKET & FIETA",
+            unitPrice: 230,
+            quantityOrdered: 2,
+            amount: 500,
+            tax: 5,
+            taxAmount: 25,
+            totalAmount: 145
+        }, {
+            name: "ATER MELON ROCKET & FIETA",
+            unitPrice: 30,
+            quantityOrdered: 2,
+            amount: 500,
+            tax: 5,
+            taxAmount: 25,
+            totalAmount: 225
+        }, {
+            name: "ATER MELON ROCKET & FIETA",
+            unitPrice: 330,
+            quantityOrdered: 2,
+            amount: 500,
+            tax: 5,
+            taxAmount: 25,
+            totalAmount: 110
+        }, {
+            name: "ATER MELON ROCKET & FIETA",
+            unitPrice: 20,
+            quantityOrdered: 2,
+            amount: 500,
+            tax: 5,
+            taxAmount: 25,
+            totalAmount: 109
+        }, {
             name: "ATER MELON ROCKET & FIETA",
             unitPrice: 300,
             quantityOrdered: 2,
@@ -25,10 +77,14 @@ export class AppComponent {
         }]
     }, {
 
-        orderNo: "Order 186",
+        orderNo: "Order 185",
         status: "Completed",
         paymentStatus: "Paid",
-        amountPayable: 525,
+        totalQuantity: 5,
+        totalamount: 525,
+        gstAmount: 20,
+        discount: 30,
+        amountPayable: 515,
         orderDetails: [{
             name: "ATER MELON ROCKET & FIETA",
             unitPrice: 300,
@@ -39,10 +95,14 @@ export class AppComponent {
             totalAmount: 525
         }]
     }, {
-        orderNo: "Order 187",
+        orderNo: "Order 185",
         status: "Completed",
         paymentStatus: "Paid",
-        amountPayable: 525,
+        totalQuantity: 5,
+        totalamount: 525,
+        gstAmount: 20,
+        discount: 30,
+        amountPayable: 515,
         orderDetails: [{
             name: "ATER MELON ROCKET & FIETA",
             unitPrice: 300,
@@ -53,7 +113,13 @@ export class AppComponent {
             totalAmount: 525
         }]
     }]
-    print(): void {
+    print(printOrder): void {
+        this.printOrder = printOrder
+        setTimeout(() => {
+            this.startPrint()
+        }, 1000);
+    }
+    startPrint() {
         let popupWinindow
         let innerContents = document.getElementById("print-section").innerHTML;
         popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
@@ -63,11 +129,23 @@ export class AppComponent {
         body {
             -webkit-print-color-adjust: exact;
             }
-            .font-size-14px{
-                font-size:14px
+            .text-center{
+                text-align:center !important;
             }
-            .cursor-pointer{
-                cursor: pointer;
+            .max-width-320px{
+                max-width:320px !important;
+            }
+            .font-size-12px{
+                font-size:12px !important;
+            }
+            p{
+                margin: 0 !important;
+            }
+            .border-bottom-dotted{
+                border-bottom: 1px dotted black !important;
+            }
+            .border-top-dotted{
+                border-top: 1px dotted black !important;
             }
         </style>
         </head><body onload="window.print()"> ${innerContents} </html>`);

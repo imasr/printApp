@@ -4,3 +4,20 @@
 .cursor-pointer{
     cursor: pointer;
 }
+
+.max-width-320px{
+    max-width:320px;
+}
+.font-size-12px{
+    font-size:12px
+}
+p{
+    margin: 0;
+}
+.border-bottom-dotted{
+    border-bottom: 1px dotted black;
+}
+.border-top-dotted{
+    border-top: 1px dotted black;
+
+}
